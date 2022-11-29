@@ -56,5 +56,5 @@ app.get('/*', (_req, res) => {
 });
 
 app.listen(port, () => {
-  console.log(`listening on port ${port}`);
+  console.log(`Server running at http://localhost:${port}/`);
 });
