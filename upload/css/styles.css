@@ -1,0 +1,59 @@
+* {
+  box-sizing: border-box;
+}
+
+a {
+  color: #369;
+}
+
+#drop-area {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px dashed #ccc;
+  border-radius: 20px;
+  width: 80%;
+  height: 80vh;
+  margin: auto;
+  padding: 20px;
+}
+
+#drop-area.highlight {
+  border-color: purple;
+}
+
+#form-container {
+  width: 20%;
+  height: 20vh;
+}
+
+.my-form {
+  width: 100%;
+  height: 30px;
+}
+
+#progress-bar {
+  margin-top: 20px;
+  width: 100%;
+  border-radius: 5px;
+  background: #ccc;
+}
+
+.button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  border-radius: 5px;
+  border: 1px solid #ccc;
+  background: #ccc;
+  cursor: pointer;
+  text-align: center;
+}
+
+.button:hover {
+  background: #ddd;
+}
+
+#fileElem {
+  display: none;
+}
