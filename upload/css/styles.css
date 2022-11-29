@@ -32,13 +32,6 @@ a {
   height: 30px;
 }
 
-#progress-bar {
-  margin-top: 20px;
-  width: 100%;
-  border-radius: 5px;
-  background: #ccc;
-}
-
 .button {
   display: block;
   width: 100%;

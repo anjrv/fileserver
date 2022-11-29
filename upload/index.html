@@ -12,11 +12,10 @@
 <body>
   <div id="drop-area">
     <div id="form-container">
-      <form class="my-form">
-        <input type="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)" />
+      <form class="my-form" enctype="multipart/form-data">
+        <input type="file" id="fileElem" multiple accept="*" onchange="handleFiles(this.files)" />
         <label class="button" for="fileElem">Lisa fail</label>
       </form>
-      <progress id="progress-bar" max="100" value="0"></progress>
     </div>
   </div>
   <script>
@@ -52,61 +51,30 @@
       dropArea.classList.remove('active');
     }
 
-    function handleDrop(e) {
+    async function handleDrop(e) {
       var dt = e.dataTransfer;
       var files = dt.files;
 
-      handleFiles(files);
+      await handleFiles(files);
     }
 
-    let uploadProgress = [];
-    let progressBar = document.getElementById('progress-bar');
-
-    function initializeProgress(numFiles) {
-      progressBar.value = 0;
-      uploadProgress = [];
-
-      for (let i = numFiles; i > 0; i--) {
-        uploadProgress.push(0);
-      }
-    }
-
-    function updateProgress(fileNumber, percent) {
-      uploadProgress[fileNumber] = percent;
-      let total =
-        uploadProgress.reduce((tot, curr) => tot + curr, 0) /
-        uploadProgress.length;
-      progressBar.value = total;
-    }
-
-    function handleFiles(files) {
+    async function handleFiles(files) {
       files = [...files];
-      initializeProgress(files.length);
-      files.forEach(uploadFile);
+      await files.forEach(uploadFile);
     }
 
-    function uploadFile(file, i) {
+    async function uploadFile(file, i) {
       console.log(file);
-      const url = 'https://192.168.1.1:3002/upload';
-      const xhr = new XMLHttpRequest();
       const formData = new FormData();
-
-      xhr.open('POST', url, true);
-
-      xhr.upload.addEventListener('progress', function (e) {
-        updateProgress(i, (e.loaded * 100.0) / e.total || 100);
-      });
-
-      xhr.addEventListener('readystatechange', function (e) {
-        if (xhr.readyState == 4 && xhr.status == 200) {
-          // Done. Inform the user
-        } else if (xhr.readyState == 4 && xhr.status != 200) {
-          // Error. Inform the user
-        }
-      });
-
+     
       formData.append('file', file);
-      xhr.send(formData);
+      const response = await fetch('/upload', {
+        method: 'POST',
+        body: formData
+      });
+
+      const json = await response.json();
+      console.log(json);
     }
   </script>
 </body>
