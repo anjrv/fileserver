@@ -24,7 +24,6 @@ app.post(
   '/upload',
   fileUpload({ createParentPath: true }),
   (req, res) => {
-    console.log('FUCK');
     try {
       if (!req.files) {
         res.send({
